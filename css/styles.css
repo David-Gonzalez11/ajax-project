@@ -51,12 +51,9 @@ img {
 }
 
 .generate-img {
-  display: flex;
-  justify-content: center;
-  width: 75%;
+  width: 100%;
 }
 
 .image-container {
   justify-content: center;
-  padding-right: 10rem;
 }
