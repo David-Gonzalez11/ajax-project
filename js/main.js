@@ -3,7 +3,6 @@ var xhr = new XMLHttpRequest();
 xhr.open('GET', 'https://random.dog/woof.json');
 // var randomImageUrl = xhr.response.url;
 var imageContainer = document.querySelector('.image-container');
-var randomImageUrl = xhr.response.url;
 
 var button = document.querySelector('BUTTON');
 button.addEventListener('click', handleClick);
@@ -27,15 +26,21 @@ function handleClick(event) {
 }
 
 function iconClick(event) {
-  if (event.target === icon) {
-    icon.classList.toggle('clicked');
+  icon.classList.toggle('clicked');
+  xhr.addEventListener('load', function () {
+
     var favoriteObject = {
-      photoUrl: randomImageUrl,
+      photoUrl: xhr.response.url,
       id: data.nextEntryId
     };
+    console.log(favoriteObject);
+
     data.nextEntryId++;
     data.favorites.unshift(favoriteObject);
   }
+
+  );
+
 }
 
 function viewFavorites(event) {
