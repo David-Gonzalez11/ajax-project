@@ -1,6 +1,6 @@
 /* exported data */
 var data = {
-  view: 'home',
+  view: 'home-page',
   favorites: [],
   nextEntryId: 1
 };
@@ -14,5 +14,4 @@ window.addEventListener('beforeunload', handleWindows);
 function handleWindows(event) {
   var todosJSON = JSON.stringify(data);
   localStorage.setItem('Ajax Project', todosJSON);
-
 }

@@ -3,16 +3,14 @@ var xhr = new XMLHttpRequest();
 xhr.open('GET', 'https://random.dog/woof.json');
 // var randomImageUrl = xhr.response.url;
 var imageContainer = document.querySelector('.image-container');
-var favoritesContainer = document.querySelector('.favorites-container');
 var randomImageUrl = xhr.response.url;
-var image = xhr.response.url;
 
 var button = document.querySelector('BUTTON');
 button.addEventListener('click', handleClick);
 var icon = document.querySelector('I');
 icon.addEventListener('click', iconClick);
 var favorites = document.querySelector('.favorites');
-favorites.addEventListener('click', favoriteTag);
+favorites.addEventListener('click', viewFavorites);
 
 var img = document.querySelector('img');
 img.setAttribute('src', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROJGo_BDmE1BQXej-UemTXxZG6RkDsA95ZnA&usqp=CAU%27');
@@ -23,31 +21,49 @@ function handleClick(event) {
   xhr.responseType = ('json');
   xhr.addEventListener('load', function () {
     data.view = 'home-page';
-    var randomImageUrl = xhr.response.url;
-    img.setAttribute('src', randomImageUrl);
+    img.setAttribute('src', xhr.response.url);
   });
   xhr.send();
 }
+
 function iconClick(event) {
   if (event.target === icon) {
     icon.classList.toggle('clicked');
+    var favoriteObject = {
+      photoUrl: randomImageUrl,
+      id: data.nextEntryId
+    };
+    data.nextEntryId++;
+    data.favorites.unshift(favoriteObject);
   }
 }
 
-function favoriteTag(event) {
+function viewFavorites(event) {
   data.view = 'favorites';
   imageContainer.classList.add('hidden');
   button.classList.add('hidden');
 }
-
-function renderImages(favorites) {
-  favoritesContainer.setAttribute('data-entry-id', data.nextEntryId);
-  var thirdDiv = document.createElement('div');
-  thirdDiv.setAttribute('class', 'column');
-  var image = document.createElement('img');
-  image.setAttribute('src', xhr.reponse);
-  image.className = 'dom-images';
-  thirdDiv.appendChild(favoritesContainer);
-  thirdDiv.appendChild(image);
-  return favoritesContainer;
+function viewHomePage() {
+  data.view = 'home-page';
 }
+function stayOnSamePageAfterRefresh() {
+  if (data.view === 'home-page') {
+    viewHomePage();
+  } else {
+    viewFavorites();
+  }
+}
+
+// function renderImages(favorites) {
+//   favoritesContainer.setAttribute('data-entry-id', favorites.id);
+//   var thirdDiv = document.createElement('div');
+//   thirdDiv.setAttribute('class', 'column');
+//   var image = document.createElement('img');
+//   image.setAttribute('src', favorites);
+//   image.className = 'dom-images';
+// imgElement.setAttribute('alt', 'dog');
+
+//   thirdDiv.appendChild(favoritesContainer);
+//   thirdDiv.appendChild(image);
+//   return favoritesContainer;
+// }

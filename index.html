@@ -25,12 +25,18 @@
           <button>Get Random Dog Image</button>
         </div>
       </div>
+      <form class="favorites-form">
 
-      <div data-view="home-page" class="row image-container column-half">
-        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALAAAACECAMAAAAHglHXAAAAOVBMVEX///+hoaH6+vrV1dWUlJSXl5ebm5u/v7+0tLSurq7Ly8vOzs7p6emenp7S0tLb29vi4uLy8vKoqKisxhe+AAABn0lEQVR4nO3Z2W6DMBBA0RiCWRIHzP9/bA0kZbErGV5mUt3zSIt05YxdSG83AAAAAAAAAAAAAADwnxSXyPWW90saseTOOXuea+WC7ev8Td5IBj/O3/QkON8nuH8N+TfJBz/HsJNGn3uTeHBhnDHGZZ9V4sG9NROXOxXiwd0SbPvMm8SDv26FCzfPcKrCP8r4onjwbTA2ND/jH/vW2jq6Kh8cFrIrUw1NGBYXrbGC4D+8luE+HtBqgwe3bMbxkKc22CzBxnX761qD62Uggmp/QisN7p1Z7cZYZ7C/b3r3Z7SeYN80n6Usmu0CG7sdYzXB4anN2fefj3WATfSgoSa4dr8f/lCZg83ZpiX4MS+qq+ekiGt/f1FJsLfrh9+6uHh9v9YRXKyRvrNx7+bxU0fwZpeNqdwQbApFwX1yUQ/FtZ7gxC5LeI+xhuDULksVeyXB6V2WGIq5VD54yFvfaYlrDcE+c30n05OmeHATXkGzhXdV6eC+bc6ohYNPf6FdCAe39WmN5L8MKltdIBdclJckviQCAAAAAAAAAAAAAADf6wd0WxjbUg113gAAAABJRU5ErkJggg==">
-        <i class="fa-solid fa-paw fa-2x"></i>
-      </div>
-      <div data-view="favorites" class="favorites-container">
+        <div data-view="home-page" class="row image-container column-half">
+          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALAAAACECAMAAAAHglHXAAAAOVBMVEX///+hoaH6+vrV1dWUlJSXl5ebm5u/v7+0tLSurq7Ly8vOzs7p6emenp7S0tLb29vi4uLy8vKoqKisxhe+AAABn0lEQVR4nO3Z2W6DMBBA0RiCWRIHzP9/bA0kZbErGV5mUt3zSIt05YxdSG83AAAAAAAAAAAAAADwnxSXyPWW90saseTOOXuea+WC7ev8Td5IBj/O3/QkON8nuH8N+TfJBz/HsJNGn3uTeHBhnDHGZZ9V4sG9NROXOxXiwd0SbPvMm8SDv26FCzfPcKrCP8r4onjwbTA2ND/jH/vW2jq6Kh8cFrIrUw1NGBYXrbGC4D+8luE+HtBqgwe3bMbxkKc22CzBxnX761qD62Uggmp/QisN7p1Z7cZYZ7C/b3r3Z7SeYN80n6Usmu0CG7sdYzXB4anN2fefj3WATfSgoSa4dr8f/lCZg83ZpiX4MS+qq+ekiGt/f1FJsLfrh9+6uHh9v9YRXKyRvrNx7+bxU0fwZpeNqdwQbApFwX1yUQ/FtZ7gxC5LeI+xhuDULksVeyXB6V2WGIq5VD54yFvfaYlrDcE+c30n05OmeHATXkGzhXdV6eC+bc6ohYNPf6FdCAe39WmN5L8MKltdIBdclJckviQCAAAAAAAAAAAAAADf6wd0WxjbUg113gAAAABJRU5ErkJggg==" class="image" id="photoUrl">
+          <i class="fa-solid fa-paw fa-2x"></i>
+        </div>
+      </form>
+
+      <div data-view="favorites">
+<ul>
+
+</ul>
         <!-- <div class="row">
           <div class="column">
             <img class="dom-image" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALAAAACECAMAAAAHglHXAAAAOVBMVEX///+hoaH6+vrV1dWUlJSXl5ebm5u/v7+0tLSurq7Ly8vOzs7p6emenp7S0tLb29vi4uLy8vKoqKisxhe+AAABn0lEQVR4nO3Z2W6DMBBA0RiCWRIHzP9/bA0kZbErGV5mUt3zSIt05YxdSG83AAAAAAAAAAAAAADwnxSXyPWW90saseTOOXuea+WC7ev8Td5IBj/O3/QkON8nuH8N+TfJBz/HsJNGn3uTeHBhnDHGZZ9V4sG9NROXOxXiwd0SbPvMm8SDv26FCzfPcKrCP8r4onjwbTA2ND/jH/vW2jq6Kh8cFrIrUw1NGBYXrbGC4D+8luE+HtBqgwe3bMbxkKc22CzBxnX761qD62Uggmp/QisN7p1Z7cZYZ7C/b3r3Z7SeYN80n6Usmu0CG7sdYzXB4anN2fefj3WATfSgoSa4dr8f/lCZg83ZpiX4MS+qq+ekiGt/f1FJsLfrh9+6uHh9v9YRXKyRvrNx7+bxU0fwZpeNqdwQbApFwX1yUQ/FtZ7gxC5LeI+xhuDULksVeyXB6V2WGIq5VD54yFvfaYlrDcE+c30n05OmeHATXkGzhXdV6eC+bc6ohYNPf6FdCAe39WmN5L8MKltdIBdclJckviQCAAAAAAAAAAAAAADf6wd0WxjbUg113gAAAABJRU5ErkJggg==">
