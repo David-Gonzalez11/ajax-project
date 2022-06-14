@@ -5,11 +5,12 @@ xhr.open('GET', 'https://random.dog/woof.json');
 var imageContainer = document.querySelector('.image-container');
 var favoritesContainer = document.querySelector('.favorites-container');
 var randomImageUrl = xhr.response.url;
+var image = xhr.response.url;
 
 var button = document.querySelector('BUTTON');
 button.addEventListener('click', handleClick);
 var icon = document.querySelector('I');
-icon.addEventListener('click', handleSubmit);
+icon.addEventListener('click', iconClick);
 var favorites = document.querySelector('.favorites');
 favorites.addEventListener('click', favoriteTag);
 
@@ -20,7 +21,6 @@ function handleClick(event) {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://random.dog/woof.json');
   xhr.responseType = ('json');
-  // add event listener here for load
   xhr.addEventListener('load', function () {
     data.view = 'home-page';
     var randomImageUrl = xhr.response.url;
@@ -28,14 +28,18 @@ function handleClick(event) {
   });
   xhr.send();
 }
+function iconClick(event) {
+  if (event.target === icon) {
+    icon.classList.toggle('clicked');
+  }
+}
 
 function favoriteTag(event) {
   data.view = 'favorites';
   imageContainer.classList.add('hidden');
   button.classList.add('hidden');
-  renderImages();
-
 }
+
 function renderImages(favorites) {
   favoritesContainer.setAttribute('data-entry-id', data.nextEntryId);
   var thirdDiv = document.createElement('div');
@@ -46,16 +50,4 @@ function renderImages(favorites) {
   thirdDiv.appendChild(favoritesContainer);
   thirdDiv.appendChild(image);
   return favoritesContainer;
-}
-function handleSubmit(event) {
-  if (event.target === icon) {
-    icon.classList.toggle('clicked');
-  }
-  var image = randomImageUrl;
-  var favoriteObject = {
-    image,
-    id: data.nextEntryId
-  };
-  data.nextEntryId++;
-  data.favorites.unshift(favoriteObject);
 }
