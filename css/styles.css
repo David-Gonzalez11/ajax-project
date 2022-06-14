@@ -51,9 +51,31 @@ img {
 }
 
 .generate-img {
+  display: flex;
   width: 100%;
+  justify-content: center;
+  margin-right: 23rem;
 }
 
 .image-container {
   justify-content: center;
+}
+
+i {
+  position: relative;
+  left: 3rem;
+  cursor: pointer;
+}
+
+.clicked {
+  color: lightblue;
+}
+
+.column {
+  width: calc(100%/4);
+}
+
+.dom-image {
+  width: 400px;
+  height: 400px;
 }

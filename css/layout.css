@@ -1,0 +1,11 @@
+.hidden {
+  display: none !important;
+}
+
+.row {
+  display: flex;
+}
+
+.container {
+  background-color: rgb(240 240 240);
+}
