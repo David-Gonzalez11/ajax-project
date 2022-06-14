@@ -1,6 +1,8 @@
 
 var xhr = new XMLHttpRequest();
 xhr.open('GET', 'https://random.dog/woof.json');
+// var randomImageUrl = xhr.response.url;
+var imageContainer = document.querySelector('.image-container');
 
 var button = document.querySelector('BUTTON');
 button.addEventListener('click', handleClick);
@@ -32,8 +34,19 @@ function iconClick(event) {
 
 function favoriteTag(event) {
   data.view = 'favorites';
-  var imageContainer = document.querySelector('.image-container');
   imageContainer.classList.add('hidden');
   button.classList.add('hidden');
 
+}
+function renderImages(favorites) {
+  var favoritesContainer = document.querySelector('.favorites-container');
+  favoritesContainer.setAttribute('data-entry-id', data.nextEntryId);
+  var thirdDiv = document.createElement('div');
+  thirdDiv.setAttribute('class', 'column');
+  var image = document.createElement('img');
+  image.setAttribute('src', xhr.reponse);
+  image.className = 'dom-images';
+  thirdDiv.appendChild(favoritesContainer);
+  thirdDiv.appendChild(image);
+  return favoritesContainer;
 }
