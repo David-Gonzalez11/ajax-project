@@ -11,7 +11,9 @@ var icon = document.querySelector('.icon');
 icon.addEventListener('click', iconClick);
 var favorites = document.querySelector('.favorites');
 favorites.addEventListener('click', viewFavorites);
-// var favoritesViewText = document.querySelector('.favorites-view-text');
+var favoritesViewText = document.querySelector('.favorites-view-text');
+var saveBtn = document.querySelector('.save-btn');
+saveBtn.addEventListener('click', iconClick);
 var currentImage;
 function handleClick(event) {
   var xhr = new XMLHttpRequest();
@@ -27,7 +29,9 @@ function handleClick(event) {
 }
 var favoriteObject;
 function iconClick(event) {
+
   icon.classList.toggle('clicked');
+
   favoriteObject = {
     id: data.nextEntryId,
     photoUrl: currentImage
@@ -39,19 +43,23 @@ function iconClick(event) {
 
 function viewFavorites(event) {
   data.view = 'favorites';
+
   imageContainer.classList.add('hidden');
   button.classList.add('hidden');
 
   button.textContent = 'Favorites';
   favorites.classList.remove('hidden');
+  favoritesViewText.classList.remove('hidden');
+  saveBtn.classList.remove('hidden');
   favorites.prepend(renderImages(favoriteObject));
+  stayOnSamePageAfterRefresh();
+
 }
-// stayOnSamePageAfterRefresh();
 
 function viewHomePage() {
   data.view = 'home-page';
+  stayOnSamePageAfterRefresh();
 }
-// stayOnSamePageAfterRefresh();
 
 function stayOnSamePageAfterRefresh() {
   if (data.view === 'home-page') {
@@ -66,8 +74,6 @@ function renderImages(favorites) {
   saveBtn.className = ('save');
   saveBtn.textContent = 'SAVE';
 
-  var firstDiv = document.createElement('div');
-  firstDiv.setAttribute('class', 'row');
   var colHalfdiv = document.createElement('div');
   colHalfdiv.setAttribute('class', 'column');
   var image = document.createElement('img');
@@ -76,15 +82,13 @@ function renderImages(favorites) {
   var h6 = document.createElement('h2');
   h6.textContent = 'Notes:';
   var heading = document.createElement('textarea');
-  heading.classList.add('.notes');
-  firstDiv.appendChild(colHalfdiv);
-  firstDiv.appendChild(colHalfdiv);
+  heading.setAttribute('id', 'notes');
+  heading.classList.add('notes');
   colHalfdiv.appendChild(image);
   colHalfdiv.appendChild(h6);
   colHalfdiv.appendChild(heading);
-  colHalfdiv.appendChild(saveBtn);
 
-  return firstDiv;
+  return colHalfdiv;
 
 }
 window.addEventListener('DOMContentLoaded', domContentLoaded);
