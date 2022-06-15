@@ -73,9 +73,24 @@ i {
 
 .column {
   width: calc(100%/4);
+  margin-left: 4rem;
 }
 
 .dom-image {
   width: 400px;
   height: 400px;
+}
+
+h6 {
+  margin-top: 0;
+}
+
+textarea {
+  resize: none;
+  width: 90%;
+  height: 50px;
+}
+
+li {
+  list-style-type: none;
 }
