@@ -7,7 +7,7 @@ var favoritesLink = document.querySelector('.favorites-link');
 favoritesLink.addEventListener('click', viewFavorites);
 var button = document.querySelector('BUTTON');
 button.addEventListener('click', handleClick);
-var icon = document.querySelector('I');
+var icon = document.querySelector('.icon');
 icon.addEventListener('click', iconClick);
 var favorites = document.querySelector('.favorites');
 favorites.addEventListener('click', viewFavorites);
@@ -19,7 +19,7 @@ function handleClick(event) {
   xhr.responseType = ('json');
   xhr.addEventListener('load', function () {
     data.view = 'home-page';
-    var img = document.querySelector('img');
+    var img = document.querySelector('.image');
     img.setAttribute('src', xhr.response.url);
     currentImage = xhr.response.url;
   });
@@ -44,9 +44,13 @@ function viewFavorites(event) {
   favorites.classList.remove('hidden');
   ul.prepend(renderImages(favoriteObject));
 }
+// stayOnSamePageAfterRefresh();
+
 function viewHomePage() {
   data.view = 'home-page';
 }
+// stayOnSamePageAfterRefresh();
+
 function stayOnSamePageAfterRefresh() {
   if (data.view === 'home-page') {
     viewHomePage();
