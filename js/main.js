@@ -11,7 +11,6 @@ var icon = document.querySelector('I');
 icon.addEventListener('click', iconClick);
 var favorites = document.querySelector('.favorites');
 favorites.addEventListener('click', viewFavorites);
-// img.setAttribute('src', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROJGo_BDmE1BQXej-UemTXxZG6RkDsA95ZnA&usqp=CAU%27');
 var ul = document.querySelector('ul');
 var currentImage;
 function handleClick(event) {
@@ -26,11 +25,11 @@ function handleClick(event) {
   });
   xhr.send();
 }
-
+var favoriteObject;
 function iconClick(event) {
   icon.classList.toggle('clicked');
   console.log('vlaue of current image', currentImage);
-  var favoriteObject = {
+  favoriteObject = {
     id: data.nextEntryId,
     photoUrl: currentImage
 
@@ -65,15 +64,15 @@ function renderImages(favorites) {
   var colHalfdiv = document.createElement('div');
   colHalfdiv.setAttribute('class', 'column-half');
   var image = document.createElement('img');
-  img.setAttribute('src', img);
+  image.setAttribute('src', favorites.photoUrl);
   var h6 = document.createElement('h2');
   h6.textContent = 'Notes:';
   var heading = document.createElement('textarea');
-  heading.textContent = favorites.notes;
   list.appendChild(firstDiv);
   firstDiv.appendChild(colHalfdiv);
   colHalfdiv.appendChild(image);
   colHalfdiv.appendChild(h6);
   colHalfdiv.appendChild(heading);
   return list;
+
 }
