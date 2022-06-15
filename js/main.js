@@ -13,9 +13,10 @@ var favorites = document.querySelector('.favorites');
 favorites.addEventListener('click', viewFavorites);
 var favoritesViewText = document.querySelector('.favorites-view-text');
 var saveBtn = document.querySelector('.save-btn');
-saveBtn.addEventListener('click', iconClick);
+saveBtn.addEventListener('click', handleSubmit);
 var currentImage;
 function handleClick(event) {
+  data.view = 'home-page';
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://random.dog/woof.json');
   xhr.responseType = ('json');
@@ -29,7 +30,7 @@ function handleClick(event) {
 }
 var favoriteObject;
 function iconClick(event) {
-
+  data.view = 'home-page';
   icon.classList.toggle('clicked');
 
   favoriteObject = {
@@ -38,37 +39,20 @@ function iconClick(event) {
   };
   data.nextEntryId++;
   data.favorites.unshift(favoriteObject);
-
-}
-
-function viewFavorites(event) {
-  data.view = 'favorites';
-
-  imageContainer.classList.add('hidden');
-  button.classList.add('hidden');
-
-  button.textContent = 'Favorites';
-  favorites.classList.remove('hidden');
-  favoritesViewText.classList.remove('hidden');
-  saveBtn.classList.remove('hidden');
-  favorites.prepend(renderImages(favoriteObject));
-  stayOnSamePageAfterRefresh();
-
 }
 
 function viewHomePage() {
   data.view = 'home-page';
   stayOnSamePageAfterRefresh();
+
 }
 
 function stayOnSamePageAfterRefresh() {
-  if (data.view === 'home-page') {
-    viewHomePage();
-  } else if (data.view === 'favorites') {
+  if (data.view === 'favorites') {
     viewFavorites();
   }
+  viewHomePage();
 }
-
 function renderImages(favorites) {
   var saveBtn = document.createElement('button');
   saveBtn.className = ('save');
@@ -82,7 +66,6 @@ function renderImages(favorites) {
   var h6 = document.createElement('h2');
   h6.textContent = 'Notes:';
   var heading = document.createElement('textarea');
-  heading.setAttribute('id', 'notes');
   heading.classList.add('notes');
   colHalfdiv.appendChild(image);
   colHalfdiv.appendChild(h6);
@@ -100,4 +83,21 @@ function domContentLoaded(event) {
       favorites.appendChild(entry);
     }
   }
+}
+
+function handleSubmit(event) {
+  favorites.reset();
+
+}
+function viewFavorites(event) {
+  data.view = 'favorites';
+  imageContainer.classList.add('hidden');
+  button.classList.add('hidden');
+  button.textContent = 'Favorites';
+  favorites.classList.remove('hidden');
+  favoritesViewText.classList.remove('hidden');
+  saveBtn.classList.remove('hidden');
+  favorites.prepend(renderImages(favoriteObject));
+  stayOnSamePageAfterRefresh();
+
 }
