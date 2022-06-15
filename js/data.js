@@ -13,5 +13,5 @@ if (previousTodosJSON !== null) {
 window.addEventListener('beforeunload', handleWindows);
 function handleWindows(event) {
   var todosJSON = JSON.stringify(data);
-  localStorage.setItem('Ajax Project', todosJSON);
+  localStorage.setItem('Ajax-Project', todosJSON);
 }
