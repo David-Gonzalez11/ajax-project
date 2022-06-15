@@ -11,7 +11,7 @@ var icon = document.querySelector('.icon');
 icon.addEventListener('click', iconClick);
 var favorites = document.querySelector('.favorites');
 favorites.addEventListener('click', viewFavorites);
-var ul = document.querySelector('ul');
+// var favoritesViewText = document.querySelector('.favorites-view-text');
 var currentImage;
 function handleClick(event) {
   var xhr = new XMLHttpRequest();
@@ -41,8 +41,10 @@ function viewFavorites(event) {
   data.view = 'favorites';
   imageContainer.classList.add('hidden');
   button.classList.add('hidden');
+
+  button.textContent = 'Favorites';
   favorites.classList.remove('hidden');
-  ul.prepend(renderImages(favoriteObject));
+  favorites.prepend(renderImages(favoriteObject));
 }
 // stayOnSamePageAfterRefresh();
 
@@ -54,27 +56,44 @@ function viewHomePage() {
 function stayOnSamePageAfterRefresh() {
   if (data.view === 'home-page') {
     viewHomePage();
-  } else {
+  } else if (data.view === 'favorites') {
     viewFavorites();
   }
 }
 
 function renderImages(favorites) {
-  var list = document.createElement('li');
+  var saveBtn = document.createElement('button');
+  saveBtn.className = ('save');
+  saveBtn.textContent = 'SAVE';
+
   var firstDiv = document.createElement('div');
   firstDiv.setAttribute('class', 'row');
   var colHalfdiv = document.createElement('div');
-  colHalfdiv.setAttribute('class', 'column-half');
+  colHalfdiv.setAttribute('class', 'column');
   var image = document.createElement('img');
+  image.className = 'dom-image';
   image.setAttribute('src', favorites.photoUrl);
   var h6 = document.createElement('h2');
   h6.textContent = 'Notes:';
   var heading = document.createElement('textarea');
-  list.appendChild(firstDiv);
+  heading.classList.add('.notes');
+  firstDiv.appendChild(colHalfdiv);
   firstDiv.appendChild(colHalfdiv);
   colHalfdiv.appendChild(image);
   colHalfdiv.appendChild(h6);
   colHalfdiv.appendChild(heading);
-  return list;
+  colHalfdiv.appendChild(saveBtn);
 
+  return firstDiv;
+
+}
+window.addEventListener('DOMContentLoaded', domContentLoaded);
+function domContentLoaded(event) {
+  for (var i = 0; i < data.favorites.length; i++) {
+
+    if (data.favorites[i] !== null) {
+      var entry = renderImages(data.favorites[i]);
+      favorites.appendChild(entry);
+    }
+  }
 }
