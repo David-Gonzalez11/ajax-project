@@ -1,12 +1,11 @@
 /* exported data */
 var data = {
-  view: 'home',
+  view: 'home-page',
   favorites: [],
-  editing: null,
   nextEntryId: 1
 };
 
-var previousTodosJSON = localStorage.getItem('Ajax Project');
+var previousTodosJSON = localStorage.getItem('Ajax-Project');
 if (previousTodosJSON !== null) {
   data = JSON.parse(previousTodosJSON);
 }
@@ -14,6 +13,5 @@ if (previousTodosJSON !== null) {
 window.addEventListener('beforeunload', handleWindows);
 function handleWindows(event) {
   var todosJSON = JSON.stringify(data);
-  localStorage.setItem('Ajax Project', todosJSON);
-
+  localStorage.setItem('Ajax-Project', todosJSON);
 }

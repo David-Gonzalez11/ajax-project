@@ -1,54 +1,80 @@
-// var xhr = new XMLHttpRequest();
-// xhr.open('GET', 'https://random.dog/woof.json');
-// var button = document.querySelector('BUTTON');
-// button.addEventListener('click', handleClick);
-// xhr.responseType = ('json');
-// var img = document.querySelector('img');
-// img.setAttribute('src', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROJGo_BDmE1BQXej-UemTXxZG6RkDsA95ZnA&usqp=CAU');
-// function handleClick(event) {
-//   var xhr = new XMLHttpRequest();
-//   xhr.open('GET', 'https://random.dog/woof.json');
-//   if (event.target === button) {
-//     xhr.addEventListener('click', handleClick);
-//     img.setAttribute('src', xhr.response.url);
-//   }
-// }
-// xhr.send();
-
-// // function renderImages(images) {
-// //   var li = document.createElement('li');
-// //   var div = document.createElement('div');
-// //   div.setAttribute('class', 'row');
-// //   var secondDiv = document.createElement('div');
-// //   secondDiv.setAttribute('class', 'column-img');
-// //   var img = document.createElement('img');
-// //   li.appendChild(div);
-// //   div.appendChild(secondDiv);
-// //   secondDiv.appendChild(img);
-// //   return div;
-// // }
-// // renderImages();
-
-// function getImage() {
-//   img.setAttribute('src', xhr.response.url);
-// }
 
 var xhr = new XMLHttpRequest();
 xhr.open('GET', 'https://random.dog/woof.json');
+// var randomImageUrl = xhr.response.url;
+var imageContainer = document.querySelector('.image-container');
+var favoritesLink = document.querySelector('.favorites-link');
+favoritesLink.addEventListener('click', viewFavorites);
 var button = document.querySelector('BUTTON');
 button.addEventListener('click', handleClick);
-
-var img = document.querySelector('img');
-img.setAttribute('src', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROJGo_BDmE1BQXej-UemTXxZG6RkDsA95ZnA&usqp=CAU%27');
-
+var icon = document.querySelector('.icon');
+icon.addEventListener('click', iconClick);
+var favorites = document.querySelector('.favorites');
+favorites.addEventListener('click', viewFavorites);
+var ul = document.querySelector('ul');
+var currentImage;
 function handleClick(event) {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://random.dog/woof.json');
   xhr.responseType = ('json');
-  // add event listener here for load
   xhr.addEventListener('load', function () {
-    var randomImageUrl = xhr.response.url;
-    img.setAttribute('src', randomImageUrl);
+    data.view = 'home-page';
+    var img = document.querySelector('.image');
+    img.setAttribute('src', xhr.response.url);
+    currentImage = xhr.response.url;
   });
   xhr.send();
+}
+var favoriteObject;
+function iconClick(event) {
+  icon.classList.toggle('clicked');
+  favoriteObject = {
+    id: data.nextEntryId,
+    photoUrl: currentImage
+  };
+  data.nextEntryId++;
+  data.favorites.unshift(favoriteObject);
+
+}
+
+function viewFavorites(event) {
+  data.view = 'favorites';
+  imageContainer.classList.add('hidden');
+  button.classList.add('hidden');
+  favorites.classList.remove('hidden');
+  ul.prepend(renderImages(favoriteObject));
+}
+// stayOnSamePageAfterRefresh();
+
+function viewHomePage() {
+  data.view = 'home-page';
+}
+// stayOnSamePageAfterRefresh();
+
+function stayOnSamePageAfterRefresh() {
+  if (data.view === 'home-page') {
+    viewHomePage();
+  } else {
+    viewFavorites();
+  }
+}
+
+function renderImages(favorites) {
+  var list = document.createElement('li');
+  var firstDiv = document.createElement('div');
+  firstDiv.setAttribute('class', 'row');
+  var colHalfdiv = document.createElement('div');
+  colHalfdiv.setAttribute('class', 'column-half');
+  var image = document.createElement('img');
+  image.setAttribute('src', favorites.photoUrl);
+  var h6 = document.createElement('h2');
+  h6.textContent = 'Notes:';
+  var heading = document.createElement('textarea');
+  list.appendChild(firstDiv);
+  firstDiv.appendChild(colHalfdiv);
+  colHalfdiv.appendChild(image);
+  colHalfdiv.appendChild(h6);
+  colHalfdiv.appendChild(heading);
+  return list;
+
 }
