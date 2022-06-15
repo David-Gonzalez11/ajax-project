@@ -5,7 +5,7 @@ var data = {
   nextEntryId: 1
 };
 
-var previousTodosJSON = localStorage.getItem('Ajax Project');
+var previousTodosJSON = localStorage.getItem('Ajax-Project');
 if (previousTodosJSON !== null) {
   data = JSON.parse(previousTodosJSON);
 }

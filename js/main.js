@@ -28,11 +28,9 @@ function handleClick(event) {
 var favoriteObject;
 function iconClick(event) {
   icon.classList.toggle('clicked');
-  console.log('vlaue of current image', currentImage);
   favoriteObject = {
     id: data.nextEntryId,
     photoUrl: currentImage
-
   };
   data.nextEntryId++;
   data.favorites.unshift(favoriteObject);
