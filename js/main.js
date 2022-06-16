@@ -12,8 +12,7 @@ icon.addEventListener('click', iconClick);
 var favorites = document.querySelector('.favorites');
 favorites.addEventListener('click', viewFavorites);
 var favoritesViewText = document.querySelector('.favorites-view-text');
-var saveBtn = document.querySelector('.save-btn');
-saveBtn.addEventListener('click', handleSubmit);
+// var notes = document.querySelector('textarea');
 var currentImage;
 function handleClick(event) {
   data.view = 'home-page';
@@ -43,7 +42,7 @@ function iconClick(event) {
 
 function viewHomePage() {
   data.view = 'home-page';
-  stayOnSamePageAfterRefresh();
+  // stayOnSamePageAfterRefresh();
 
 }
 
@@ -55,21 +54,22 @@ function stayOnSamePageAfterRefresh() {
 }
 function renderImages(favorites) {
   var saveBtn = document.createElement('button');
-  saveBtn.className = ('save');
+  saveBtn.className = ('save-btn');
   saveBtn.textContent = 'SAVE';
 
   var colHalfdiv = document.createElement('div');
   colHalfdiv.setAttribute('class', 'column');
   var image = document.createElement('img');
   image.className = 'dom-image';
-  image.setAttribute('src', favorites.photoUrl);
+  image.setAttribute('src', data.favorites[0].photoUrl);
   var h6 = document.createElement('h2');
   h6.textContent = 'Notes:';
-  var heading = document.createElement('textarea');
-  heading.classList.add('notes');
+  var textarea = document.createElement('textarea');
+  textarea.textContent = data.favorites[0].notes;
   colHalfdiv.appendChild(image);
   colHalfdiv.appendChild(h6);
-  colHalfdiv.appendChild(heading);
+  colHalfdiv.appendChild(textarea);
+  colHalfdiv.appendChild(saveBtn);
 
   return colHalfdiv;
 
@@ -85,10 +85,6 @@ function domContentLoaded(event) {
   }
 }
 
-function handleSubmit(event) {
-  favorites.reset();
-
-}
 function viewFavorites(event) {
   data.view = 'favorites';
   imageContainer.classList.add('hidden');
@@ -96,8 +92,7 @@ function viewFavorites(event) {
   button.textContent = 'Favorites';
   favorites.classList.remove('hidden');
   favoritesViewText.classList.remove('hidden');
-  saveBtn.classList.remove('hidden');
   favorites.prepend(renderImages(favoriteObject));
-  stayOnSamePageAfterRefresh();
 
 }
+// stayOnSamePageAfterRefresh();

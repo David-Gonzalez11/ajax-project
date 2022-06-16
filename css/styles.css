@@ -104,9 +104,8 @@ li {
   padding-bottom: 5px;
   margin-top: 0.5rem;
   margin-left: 0;
-  position: absolute;
-  right: 8rem;
   font-size: 10px;
+  float: right;
 }
 
 .favorites-view-text {
@@ -114,4 +113,8 @@ li {
   padding-left: 1rem;
   font-size: xx-large;
   margin-left: 2rem;
+}
+
+.favorites {
+  display: flex;
 }
