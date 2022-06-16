@@ -10,7 +10,6 @@ button.addEventListener('click', handleClick);
 var icon = document.querySelector('.icon');
 icon.addEventListener('click', iconClick);
 var favorites = document.querySelector('.favorites');
-favorites.addEventListener('click', viewFavorites);
 var favoritesViewText = document.querySelector('.favorites-view-text');
 // var notes = document.querySelector('textarea');
 var currentImage;
@@ -61,19 +60,20 @@ function renderImages(favorites) {
   colHalfdiv.setAttribute('class', 'column');
   var image = document.createElement('img');
   image.className = 'dom-image';
-  image.setAttribute('src', data.favorites[0].photoUrl);
+  image.setAttribute('src', data.favorites[1].photoUrl);
   var h6 = document.createElement('h2');
   h6.textContent = 'Notes:';
   var textarea = document.createElement('textarea');
+  textarea.setAttribute('id', 'notes');
   textarea.textContent = data.favorites[0].notes;
   colHalfdiv.appendChild(image);
   colHalfdiv.appendChild(h6);
   colHalfdiv.appendChild(textarea);
-  colHalfdiv.appendChild(saveBtn);
 
   return colHalfdiv;
 
 }
+
 window.addEventListener('DOMContentLoaded', domContentLoaded);
 function domContentLoaded(event) {
   for (var i = 0; i < data.favorites.length; i++) {
@@ -84,15 +84,34 @@ function domContentLoaded(event) {
     }
   }
 }
-
+var saveBtn = document.querySelector('.save-btn');
 function viewFavorites(event) {
   data.view = 'favorites';
   imageContainer.classList.add('hidden');
   button.classList.add('hidden');
   button.textContent = 'Favorites';
+  saveBtn.classList.remove('hidden');
+
   favorites.classList.remove('hidden');
   favoritesViewText.classList.remove('hidden');
   favorites.prepend(renderImages(favoriteObject));
 
 }
-// stayOnSamePageAfterRefresh();
+stayOnSamePageAfterRefresh();
+
+// function saveBttn(event) {
+//   data.view = 'favorites';
+//   var favoritesList = event.target.closest('column-half');
+//   var Id = favoritesList.getAttribute('data-favorites-id');
+//   var entry = data.favorites.find(entry => favorites.id == (id));
+//   if (event.target === saveBtn) {
+//     var notes = document.querySelector('#notes');
+//     notes.value = data.favorites.notes
+//   }
+
+// }
+var saveInput = document.querySelector('input');
+saveInput.addEventListener('click', saveInputButton);
+function saveInputButton(event) {
+
+}
