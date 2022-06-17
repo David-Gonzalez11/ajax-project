@@ -15,8 +15,44 @@
   box-sizing: border-box;
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (max-width: 600px) {
+  .favorites {
+    width: 100%;
+  }
+
+  .container {
+    width: 900px;
+  }
+
+  .dom-image {
+    width: 25%;
+    margin-right: 2rem;
+  }
+
+  .textarea {
+    width: 30%;
+  }
+
   .column {
-    width: 50%;
+    width: 25%;
+  }
+
+  .save-btn {
+    position: relative;
+    left: 22rem;
+  }
+
+  .header {
+    width: 100%;
+  }
+
+  .generate-img {
+    padding: 15px;
+    margin-top: 0;
+    margin-left: 1rem;
+  }
+
+  .image {
+    width: 600px;
   }
 }

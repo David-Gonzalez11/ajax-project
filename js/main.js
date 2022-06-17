@@ -46,7 +46,7 @@ function stayOnSamePageAfterRefresh() {
   }
   viewHomePage();
 }
-// var updatedData = localStorage.getItem(renderImages(data.favorites));
+// var updatedData = localStorage.getItem(renderImages(data.favorites[i]));
 function renderImages(favorites) {
   var saveBtn = document.createElement('button');
   saveBtn.addEventListener('click', handleSubmit);
