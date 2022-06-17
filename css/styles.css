@@ -72,13 +72,14 @@ i {
 }
 
 .column {
+  justify-content: center;
   margin-top: 0;
   width: 50%;
   margin-left: 2.5rem;
 }
 
 .dom-image {
-  width: 550px;
+  width: 650px;
   height: 500px;
 }
 
@@ -87,7 +88,7 @@ h6 {
 }
 
 textarea {
-  width: 550px;
+  width: 650px;
   height: 40px;
   resize: none;
 }
@@ -105,7 +106,9 @@ li {
   margin-top: 0.5rem;
   margin-left: 0;
   font-size: 10px;
-  float: right;
+  position: relative;
+  top: 2rem;
+  right: 4rem;
 }
 
 .favorites-view-text {
@@ -117,4 +120,13 @@ li {
 
 .favorites {
   display: flex;
+}
+
+.column-editing {
+  align-items: center;
+  justify-content: center;
+}
+
+.fa-pen {
+  color: red;
 }

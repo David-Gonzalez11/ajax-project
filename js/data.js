@@ -2,7 +2,6 @@
 var data = {
   view: 'home-page',
   favorites: [],
-  editing: null,
   nextEntryId: 1
 };
 
