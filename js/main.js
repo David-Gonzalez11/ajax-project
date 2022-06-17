@@ -38,7 +38,7 @@ function iconClick(event) {
 }
 function viewHomePage() {
   data.view = 'home-page';
-  // stayOnSamePageAfterRefresh();
+  stayOnSamePageAfterRefresh();
 }
 function stayOnSamePageAfterRefresh() {
   if (data.view === 'favorites') {
@@ -46,7 +46,7 @@ function stayOnSamePageAfterRefresh() {
   }
   viewHomePage();
 }
-var updatedData = localStorage.getItem();
+// var updatedData = localStorage.getItem(renderImages(data.favorites));
 function renderImages(favorites) {
   var saveBtn = document.createElement('button');
   saveBtn.addEventListener('click', handleSubmit);
@@ -96,29 +96,15 @@ function viewFavorites(event) {
   $imageContainer.classList.add('hidden');
   $button.classList.add('hidden');
   $button.textContent = 'Favorites';
-  // saveBtn.classList.remove('hidden');
   $favorites.classList.remove('hidden');
   $favoritesViewText.classList.remove('hidden');
-  // for (var y = 0; y < data.favorites.length; y++) {
-  //   $favorites.prepend(renderImages[data.favorites[y]]);
-  // }
 
 }
-// stayOnSamePageAfterRefresh();
+stayOnSamePageAfterRefresh();
 
-function saveInputButton(event) {
-  console.log(' i was clicked');
-  var newFavoriteObject = {
-    id: data.nextEntryId,
-    photoUrl: currentImage,
-    notes
-  };
-}
 var saveInput = document.querySelector('input');
 saveInput.addEventListener('click', handleSubmit);
 var newFavoriteObject;
-
-console.log('data.favorites', data.favorites);
 
 function handleSubmit(event) {
   event.preventDefault();
@@ -132,29 +118,3 @@ function handleSubmit(event) {
   };
   data.favorites[datasetId] = newFavoriteObject;
 }
-
-// function replaceExistingEntry(favorites) {
-//   for (var i = 0; i < data.favorites; i++) {
-//     var dataId = data.favorites[i].id - 1;
-//   }
-//   var updatedNode = renderImages(newFavoriteObject);
-//   console.log('value of updated Node', updatedNode);
-//   var entryAttribute = '[data-id="' + data.favorites[dataId] + '"]';
-//   console.log('value of entryAttribute:', entryAttribute);
-//   var oldListItem = document.querySelector(entryAttribute);
-//   console.log('value of oldListItem', oldListItem);
-//   oldListItem.replaceWith(updatedNode);
-// }
-
-// function editClick(event) {
-//   data.view = 'editingFavorites';
-//   var toEdit = event.target.closest('column-half');
-//   if (event.target === 'I') {
-//     $favorites.classList.add('hidden');
-//     $imageContainer.classList.add('hidden');
-//     var $notes = document.querySelector('#textarea');
-//     var $phooto = document.querySelector('#photo');
-//     $notes.value = data.editing.notes;
-//     $phooto.value = data.editing.photoUrl;
-//   }
-// }
