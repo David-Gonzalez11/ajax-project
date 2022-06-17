@@ -1,7 +1,3 @@
-
-var xhr = new XMLHttpRequest();
-xhr.open('GET', 'https://random.dog/woof.json');
-// var randomImageUrl = xhr.response.url;
 var $imageContainer = document.querySelector('.image-container');
 var $favoritesLink = document.querySelector('.favorites-link');
 $favoritesLink.addEventListener('click', viewFavorites);
@@ -14,11 +10,8 @@ var $favoritesViewText = document.querySelector('.favorites-view-text');
 var notes = document.createElement('textarea');
 notes.setAttribute('id', 'notes');
 notes.textContent = notes.value;
-var editing = document.querySelector('editing');
-var textId = document.querySelector('#notes');
-var form = document.querySelector('form');
-// var notes = document.querySelector('textarea');
 var currentImage;
+
 function handleClick(event) {
   data.view = 'home-page';
   var xhr = new XMLHttpRequest();
@@ -33,16 +26,15 @@ function handleClick(event) {
   xhr.send();
 }
 
-var favoriteObject;
 function iconClick(event) {
   data.view = 'home-page';
   $icon.classList.toggle('clicked');
-  favoriteObject = {
+  var favoriteObject = {
     id: data.nextEntryId,
     photoUrl: currentImage
   };
   data.nextEntryId++;
-  data.favorites.unshift(favoriteObject);
+  data.favorites.push(favoriteObject);
 }
 function viewHomePage() {
   data.view = 'home-page';
@@ -54,15 +46,15 @@ function stayOnSamePageAfterRefresh() {
   }
   viewHomePage();
 }
+var updatedData = localStorage.getItem();
 function renderImages(favorites) {
-
   var saveBtn = document.createElement('button');
   saveBtn.addEventListener('click', handleSubmit);
   saveBtn.className = ('save-btn');
   saveBtn.textContent = 'SAVE';
   var colHalfdiv = document.createElement('div');
   colHalfdiv.setAttribute('class', 'column');
-  colHalfdiv.setAttribute('data-id', data.favorites.id);
+  colHalfdiv.setAttribute('data-id', favorites.dataId);
 
   var image = document.createElement('img');
   image.className = 'dom-image';
@@ -71,6 +63,9 @@ function renderImages(favorites) {
   h6.textContent = 'Notes:';
   var textarea = document.createElement('textarea');
   textarea.setAttribute('id', 'notes');
+  textarea.setAttribute('data-id', favorites.id);
+
+  // pre fill text content
   // textarea.textContent = favorites.notes;
   var editIcon = document.createElement('i');
   editIcon.className = 'fas fa-pen';
@@ -95,6 +90,7 @@ function domContentLoaded(event) {
 }
 var saveBtn = document.querySelector('.save-btn');
 saveBtn.addEventListener('click', handleSubmit);
+
 function viewFavorites(event) {
   data.view = 'favorites';
   $imageContainer.classList.add('hidden');
@@ -103,7 +99,10 @@ function viewFavorites(event) {
   // saveBtn.classList.remove('hidden');
   $favorites.classList.remove('hidden');
   $favoritesViewText.classList.remove('hidden');
-  $favorites.prepend(renderImages(favoriteObject));
+  // for (var y = 0; y < data.favorites.length; y++) {
+  //   $favorites.prepend(renderImages[data.favorites[y]]);
+  // }
+
 }
 // stayOnSamePageAfterRefresh();
 
@@ -120,32 +119,32 @@ saveInput.addEventListener('click', handleSubmit);
 var newFavoriteObject;
 
 console.log('data.favorites', data.favorites);
+
 function handleSubmit(event) {
   event.preventDefault();
+  var notes = document.getElementById('notes').value;
+  var datasetId = Number(document.getElementById('notes').dataset.id);
+
   newFavoriteObject = {
-    id: data.nextEntryId,
-    photoUrl: currentImage,
+    id: datasetId,
+    photoUrl: data.favorites[Number(datasetId)].photoUrl,
     notes
   };
-  // data.favorites.prepend(renderImages(newFavoriteObject));
-  var indexToUpdate = data.favorites.findIndex(favorites => (Number(data.favorites.id) === Number(data.nextEntryId)));
-  data.favorites[indexToUpdate] = newFavoriteObject;
-
-  replaceExistingEntry(newFavoriteObject);
+  data.favorites[datasetId] = newFavoriteObject;
 }
 
-function replaceExistingEntry(favorites) {
-  for (var i = 0; i < data.favorites.length; i++) {
-    var entryId = data.favorites[i].id;
-  }
-  var updatedNode = renderImages(newFavoriteObject);
-  console.log('value of updated Node', updatedNode);
-  var entryAttribute = '[data-id="' + data.favorites[entryId] + '"]';
-  console.log('value of entryAttribute:', entryAttribute);
-  var oldListItem = document.querySelector(entryAttribute);
-  console.log('value of oldListItem', oldListItem);
-  oldListItem.replaceWith(updatedNode);
-}
+// function replaceExistingEntry(favorites) {
+//   for (var i = 0; i < data.favorites; i++) {
+//     var dataId = data.favorites[i].id - 1;
+//   }
+//   var updatedNode = renderImages(newFavoriteObject);
+//   console.log('value of updated Node', updatedNode);
+//   var entryAttribute = '[data-id="' + data.favorites[dataId] + '"]';
+//   console.log('value of entryAttribute:', entryAttribute);
+//   var oldListItem = document.querySelector(entryAttribute);
+//   console.log('value of oldListItem', oldListItem);
+//   oldListItem.replaceWith(updatedNode);
+// }
 
 // function editClick(event) {
 //   data.view = 'editingFavorites';

@@ -109,6 +109,7 @@ li {
   position: relative;
   top: 2rem;
   right: 4rem;
+  float: right;
 }
 
 .favorites-view-text {
