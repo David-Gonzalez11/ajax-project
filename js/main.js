@@ -1,19 +1,19 @@
-
-var xhr = new XMLHttpRequest();
-xhr.open('GET', 'https://random.dog/woof.json');
-// var randomImageUrl = xhr.response.url;
-var imageContainer = document.querySelector('.image-container');
-var favoritesLink = document.querySelector('.favorites-link');
-favoritesLink.addEventListener('click', viewFavorites);
-var button = document.querySelector('BUTTON');
-button.addEventListener('click', handleClick);
-var icon = document.querySelector('.icon');
-icon.addEventListener('click', iconClick);
-var favorites = document.querySelector('.favorites');
-favorites.addEventListener('click', viewFavorites);
-var ul = document.querySelector('ul');
+var $imageContainer = document.querySelector('.image-container');
+var $favoritesLink = document.querySelector('.favorites-link');
+$favoritesLink.addEventListener('click', viewFavorites);
+var $button = document.querySelector('BUTTON');
+$button.addEventListener('click', handleClick);
+var $icon = document.querySelector('.icon');
+$icon.addEventListener('click', iconClick);
+var $favorites = document.querySelector('.favorites');
+var $favoritesViewText = document.querySelector('.favorites-view-text');
+var notes = document.createElement('textarea');
+notes.setAttribute('id', 'notes');
+notes.textContent = notes.value;
 var currentImage;
+
 function handleClick(event) {
+  data.view = 'home-page';
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://random.dog/woof.json');
   xhr.responseType = ('json');
@@ -25,56 +25,96 @@ function handleClick(event) {
   });
   xhr.send();
 }
-var favoriteObject;
+
 function iconClick(event) {
-  icon.classList.toggle('clicked');
-  favoriteObject = {
+  data.view = 'home-page';
+  $icon.classList.toggle('clicked');
+  var favoriteObject = {
     id: data.nextEntryId,
     photoUrl: currentImage
   };
   data.nextEntryId++;
-  data.favorites.unshift(favoriteObject);
-
+  data.favorites.push(favoriteObject);
 }
-
-function viewFavorites(event) {
-  data.view = 'favorites';
-  imageContainer.classList.add('hidden');
-  button.classList.add('hidden');
-  favorites.classList.remove('hidden');
-  ul.prepend(renderImages(favoriteObject));
-}
-// stayOnSamePageAfterRefresh();
-
 function viewHomePage() {
   data.view = 'home-page';
+  stayOnSamePageAfterRefresh();
 }
-// stayOnSamePageAfterRefresh();
-
 function stayOnSamePageAfterRefresh() {
-  if (data.view === 'home-page') {
-    viewHomePage();
-  } else {
+  if (data.view === 'favorites') {
     viewFavorites();
   }
+  viewHomePage();
 }
-
+// var updatedData = localStorage.getItem(renderImages(data.favorites));
 function renderImages(favorites) {
-  var list = document.createElement('li');
-  var firstDiv = document.createElement('div');
-  firstDiv.setAttribute('class', 'row');
+  var saveBtn = document.createElement('button');
+  saveBtn.addEventListener('click', handleSubmit);
+  saveBtn.className = ('save-btn');
+  saveBtn.textContent = 'SAVE';
   var colHalfdiv = document.createElement('div');
-  colHalfdiv.setAttribute('class', 'column-half');
+  colHalfdiv.setAttribute('class', 'column');
+  colHalfdiv.setAttribute('data-id', favorites.dataId);
+
   var image = document.createElement('img');
+  image.className = 'dom-image';
   image.setAttribute('src', favorites.photoUrl);
   var h6 = document.createElement('h2');
   h6.textContent = 'Notes:';
-  var heading = document.createElement('textarea');
-  list.appendChild(firstDiv);
-  firstDiv.appendChild(colHalfdiv);
+  var textarea = document.createElement('textarea');
+  textarea.setAttribute('id', 'notes');
+  textarea.setAttribute('data-id', favorites.id);
+
+  // pre fill text content
+  // textarea.textContent = favorites.notes;
+  var editIcon = document.createElement('i');
+  editIcon.className = 'fas fa-pen';
+  var AddIcon = document.createElement('i');
+  AddIcon.className = 'fa-solid fa-plus';
+
   colHalfdiv.appendChild(image);
   colHalfdiv.appendChild(h6);
-  colHalfdiv.appendChild(heading);
-  return list;
+  colHalfdiv.appendChild(textarea);
+  colHalfdiv.appendChild(saveBtn);
 
+  return colHalfdiv;
+}
+window.addEventListener('DOMContentLoaded', domContentLoaded);
+function domContentLoaded(event) {
+  for (var i = 0; i < data.favorites.length; i++) {
+    if (data.favorites[i] !== null) {
+      var entry = renderImages(data.favorites[i]);
+      $favorites.appendChild(entry);
+    }
+  }
+}
+var saveBtn = document.querySelector('.save-btn');
+saveBtn.addEventListener('click', handleSubmit);
+
+function viewFavorites(event) {
+  data.view = 'favorites';
+  $imageContainer.classList.add('hidden');
+  $button.classList.add('hidden');
+  $button.textContent = 'Favorites';
+  $favorites.classList.remove('hidden');
+  $favoritesViewText.classList.remove('hidden');
+
+}
+stayOnSamePageAfterRefresh();
+
+var saveInput = document.querySelector('input');
+saveInput.addEventListener('click', handleSubmit);
+var newFavoriteObject;
+
+function handleSubmit(event) {
+  event.preventDefault();
+  var notes = document.getElementById('notes').value;
+  var datasetId = Number(document.getElementById('notes').dataset.id);
+
+  newFavoriteObject = {
+    id: datasetId,
+    photoUrl: data.favorites[Number(datasetId)].photoUrl,
+    notes
+  };
+  data.favorites[datasetId] = newFavoriteObject;
 }
