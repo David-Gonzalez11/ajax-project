@@ -15,8 +15,46 @@
   box-sizing: border-box;
 }
 
-@media screen and (min-width: 600px) {
-  .column {
+/* @media screen and (min-width: 768px) {
+  .container {
+    max-width: 900px;
+    margin: auto;
+  }
+
+  .column, {
     width: 50%;
   }
-}
+
+  .column-half {
+    width: 50%;
+  }
+
+  .favorites {
+    width: 50%;
+    display: flex;
+  }
+
+  .dom-image {
+    width: 200px;
+    height: 300px;
+  }
+
+  .save-btn {
+    position: absolute;
+    left: 19rem;
+    margin-bottom: 0;
+    bottom: 3rem;
+  }
+
+  .img {
+    display: flex;
+    width: 200px;
+    justify-content: center;
+  }
+
+  .image-container {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+  }
+} */

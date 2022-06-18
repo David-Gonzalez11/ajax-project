@@ -38,7 +38,7 @@ function iconClick(event) {
 }
 function viewHomePage() {
   data.view = 'home-page';
-  stayOnSamePageAfterRefresh();
+  // stayOnSamePageAfterRefresh();
 }
 function stayOnSamePageAfterRefresh() {
   if (data.view === 'favorites') {
@@ -54,10 +54,10 @@ function renderImages(favorites) {
   saveBtn.textContent = 'SAVE';
   var colHalfdiv = document.createElement('div');
   colHalfdiv.setAttribute('class', 'column');
-  colHalfdiv.setAttribute('data-id', favorites.dataId);
-
+  colHalfdiv.setAttribute('data-id', favorites.id);
   var image = document.createElement('img');
   image.className = 'dom-image';
+  image.setAttribute('id', image);
   image.setAttribute('src', favorites.photoUrl);
   var h6 = document.createElement('h2');
   h6.textContent = 'Notes:';
@@ -66,17 +66,14 @@ function renderImages(favorites) {
   textarea.setAttribute('data-id', favorites.id);
 
   // pre fill text content
-  // textarea.textContent = favorites.notes;
+  textarea.textContent = favorites.notes;
+  // console.log('value of textArea.value', textarea.value);
   var editIcon = document.createElement('i');
   editIcon.className = 'fas fa-pen';
-  var AddIcon = document.createElement('i');
-  AddIcon.className = 'fa-solid fa-plus';
-
   colHalfdiv.appendChild(image);
   colHalfdiv.appendChild(h6);
   colHalfdiv.appendChild(textarea);
   colHalfdiv.appendChild(saveBtn);
-
   return colHalfdiv;
 }
 window.addEventListener('DOMContentLoaded', domContentLoaded);
@@ -102,8 +99,8 @@ function viewFavorites(event) {
 }
 stayOnSamePageAfterRefresh();
 
-var saveInput = document.querySelector('input');
-saveInput.addEventListener('click', handleSubmit);
+// var saveInput = document.getElementById('input');
+// saveInput.addEventListener('click', handleSubmit);
 var newFavoriteObject;
 
 function handleSubmit(event) {
@@ -117,4 +114,29 @@ function handleSubmit(event) {
     notes
   };
   data.favorites[datasetId] = newFavoriteObject;
+  datasetId++;
+
 }
+
+// fulfili data late
+// var currentEntry = data.favorites.id;
+
+// function deleteAnEntry(event) {
+
+//   var column = document.querySelectorAll('columns');
+//   for (var i = 0; i < data.favorites.length; i++) {
+
+//     var entryIdValue = column[i].getAttribute('data-id');
+//     var parsedValue = parseInt(entryIdValue);
+
+//     if (currentEntry === parsedValue) {
+//       data.entries.splice(i, 1);
+//       column[i].remove();
+//       viewFavorites();
+//     }
+//   }
+//   modal.classList.add('hidden');
+//   overlay.classList.add('hidden');
+//   data.editing = null;
+//   data.view = ('entries');
+// }
