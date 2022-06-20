@@ -118,7 +118,7 @@ function handleSubmit(event) {
   if (datasetId === data.favorites.id) {
     data.favorites[datasetId] = newFavoriteObject;
   }
-  console.log(datasetId);
+  // console.log(datasetId);
 }
 
 // fulfili data late
