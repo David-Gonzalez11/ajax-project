@@ -52,12 +52,12 @@ function renderImages(favorites) {
   saveBtn.addEventListener('click', handleSubmit);
   saveBtn.className = ('save-btn');
   saveBtn.textContent = 'SAVE';
+  saveBtn.setAttribute('data-id', favorites.id);
   var colHalfdiv = document.createElement('div');
   colHalfdiv.setAttribute('class', 'column');
   colHalfdiv.setAttribute('data-id', favorites.id);
   var image = document.createElement('img');
   image.className = 'dom-image';
-  image.setAttribute('id', image);
   image.setAttribute('src', favorites.photoUrl);
   var h6 = document.createElement('h2');
   h6.textContent = 'Notes:';
@@ -115,7 +115,10 @@ function handleSubmit(event) {
   };
   data.favorites[datasetId] = newFavoriteObject;
   datasetId++;
-
+  if (datasetId === data.favorites.id) {
+    data.favorites[datasetId] = newFavoriteObject;
+  }
+  console.log(datasetId);
 }
 
 // fulfili data late

@@ -72,15 +72,23 @@ i {
 }
 
 .column {
+  flex-wrap: wrap;
   justify-content: center;
   margin-top: 0;
-  width: 50%;
+  width: calc(100% / 2);
   margin-left: 2.5rem;
 }
 
 .dom-image {
   width: 650px;
   height: 500px;
+
+  /* box-shadow:
+    rgba(46, 101, 240, 0.914) 5px 5px,
+    rgba(39, 100, 255, 0.3) 10px 10px,
+    rgba(0, 17, 249, 0.2) 15px 15px,
+    rgba(240, 46, 170, 0.1) 20px 20px,
+    rgba(240, 46, 170, 0.05) 25px 25px; */
 }
 
 h6 {
@@ -108,7 +116,7 @@ li {
   font-size: 10px;
   position: relative;
   top: 2rem;
-  right: 4rem;
+  right: 2rem;
   float: right;
 }
 
