@@ -114,32 +114,5 @@ function handleSubmit(event) {
     notes
   };
   data.favorites[datasetId] = newFavoriteObject;
-  datasetId++;
-  if (datasetId === data.favorites.id) {
-    data.favorites[datasetId] = newFavoriteObject;
-  }
-  // console.log(datasetId);
+
 }
-
-// fulfili data late
-// var currentEntry = data.favorites.id;
-
-// function deleteAnEntry(event) {
-
-//   var column = document.querySelectorAll('columns');
-//   for (var i = 0; i < data.favorites.length; i++) {
-
-//     var entryIdValue = column[i].getAttribute('data-id');
-//     var parsedValue = parseInt(entryIdValue);
-
-//     if (currentEntry === parsedValue) {
-//       data.entries.splice(i, 1);
-//       column[i].remove();
-//       viewFavorites();
-//     }
-//   }
-//   modal.classList.add('hidden');
-//   overlay.classList.add('hidden');
-//   data.editing = null;
-//   data.view = ('entries');
-// }
