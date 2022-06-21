@@ -46,8 +46,8 @@ button {
 }
 
 img {
-  width: 800px;
-  height: 600px;
+  width: 500px;
+  height: 500px;
 }
 
 .generate-img {
@@ -63,8 +63,8 @@ img {
 
 i {
   position: relative;
-  left: 1rem;
   cursor: pointer;
+  right: 2rem;
 }
 
 .clicked {
@@ -72,15 +72,23 @@ i {
 }
 
 .column {
+  flex-wrap: wrap;
   justify-content: center;
   margin-top: 0;
-  width: 50%;
+  width: calc(100% / 2);
   margin-left: 2.5rem;
 }
 
 .dom-image {
   width: 650px;
-  height: 500px;
+  height: 400px;
+
+  /* box-shadow:
+    rgba(46, 101, 240, 0.914) 5px 5px,
+    rgba(39, 100, 255, 0.3) 10px 10px,
+    rgba(0, 17, 249, 0.2) 15px 15px,
+    rgba(240, 46, 170, 0.1) 20px 20px,
+    rgba(240, 46, 170, 0.05) 25px 25px; */
 }
 
 h6 {
@@ -107,9 +115,8 @@ li {
   margin-left: 0;
   font-size: 10px;
   position: relative;
-  top: 2rem;
-  right: 4rem;
-  float: right;
+  top: 0;
+  left: 36rem;
 }
 
 .favorites-view-text {
@@ -128,6 +135,9 @@ li {
   justify-content: center;
 }
 
-.fa-pen {
-  color: red;
+.image {
+  width: 650px;
+  height: 600px;
+  position: relative;
+  right: 2.5rem;
 }

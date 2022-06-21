@@ -38,7 +38,7 @@ function iconClick(event) {
 }
 function viewHomePage() {
   data.view = 'home-page';
-  stayOnSamePageAfterRefresh();
+  // stayOnSamePageAfterRefresh();
 }
 function stayOnSamePageAfterRefresh() {
   if (data.view === 'favorites') {
@@ -52,31 +52,27 @@ function renderImages(favorites) {
   saveBtn.addEventListener('click', handleSubmit);
   saveBtn.className = ('save-btn');
   saveBtn.textContent = 'SAVE';
+  saveBtn.setAttribute('data-id', favorites.id);
   var colHalfdiv = document.createElement('div');
   colHalfdiv.setAttribute('class', 'column');
-  colHalfdiv.setAttribute('data-id', favorites.dataId);
-
+  colHalfdiv.setAttribute('data-id', favorites.id);
   var image = document.createElement('img');
   image.className = 'dom-image';
   image.setAttribute('src', favorites.photoUrl);
   var h6 = document.createElement('h2');
   h6.textContent = 'Notes:';
   var textarea = document.createElement('textarea');
-  textarea.setAttribute('id', 'notes');
+  textarea.setAttribute('id', `notes-${favorites.id}`);
   textarea.setAttribute('data-id', favorites.id);
 
   // pre fill text content
-  // textarea.textContent = favorites.notes;
+  textarea.textContent = favorites.notes;
   var editIcon = document.createElement('i');
   editIcon.className = 'fas fa-pen';
-  var AddIcon = document.createElement('i');
-  AddIcon.className = 'fa-solid fa-plus';
-
   colHalfdiv.appendChild(image);
   colHalfdiv.appendChild(h6);
   colHalfdiv.appendChild(textarea);
   colHalfdiv.appendChild(saveBtn);
-
   return colHalfdiv;
 }
 window.addEventListener('DOMContentLoaded', domContentLoaded);
@@ -102,18 +98,17 @@ function viewFavorites(event) {
 }
 stayOnSamePageAfterRefresh();
 
-var saveInput = document.querySelector('input');
-saveInput.addEventListener('click', handleSubmit);
 var newFavoriteObject;
 
 function handleSubmit(event) {
   event.preventDefault();
-  var notes = document.getElementById('notes').value;
-  var datasetId = Number(document.getElementById('notes').dataset.id);
+  var dataId = event.target.getAttribute('data-id');
+  var notes = document.getElementById(`notes-${dataId}`).value;
+  var datasetId = Number(document.getElementById(`notes-${dataId}`).dataset.id);
 
   newFavoriteObject = {
     id: datasetId,
-    photoUrl: data.favorites[Number(datasetId)].photoUrl,
+    photoUrl: data.favorites[Number(dataId)].photoUrl,
     notes
   };
   data.favorites[datasetId] = newFavoriteObject;
