@@ -8,20 +8,20 @@
 
 .container {
   height: 900px;
-  background-color: rgb(240 240 240);
+  margin: auto;
 }
 
 * {
   box-sizing: border-box;
 }
 
-/* @media screen and (min-width: 768px) {
+@media screen and (min-width: 768px) {
   .container {
     max-width: 900px;
     margin: auto;
   }
 
-  .column, {
+  .column {
     width: 50%;
   }
 
@@ -32,6 +32,7 @@
   .favorites {
     width: 50%;
     display: flex;
+    flex-wrap: wrap;
   }
 
   .dom-image {
@@ -57,4 +58,4 @@
     justify-content: center;
     margin: auto;
   }
-} */
+}

@@ -62,12 +62,11 @@ function renderImages(favorites) {
   var h6 = document.createElement('h2');
   h6.textContent = 'Notes:';
   var textarea = document.createElement('textarea');
-  textarea.setAttribute('id', 'notes');
+  textarea.setAttribute('id', `notes-${favorites.id}`);
   textarea.setAttribute('data-id', favorites.id);
 
   // pre fill text content
   textarea.textContent = favorites.notes;
-  // console.log('value of textArea.value', textarea.value);
   var editIcon = document.createElement('i');
   editIcon.className = 'fas fa-pen';
   colHalfdiv.appendChild(image);
@@ -99,20 +98,18 @@ function viewFavorites(event) {
 }
 stayOnSamePageAfterRefresh();
 
-// var saveInput = document.getElementById('input');
-// saveInput.addEventListener('click', handleSubmit);
 var newFavoriteObject;
 
 function handleSubmit(event) {
   event.preventDefault();
-  var notes = document.getElementById('notes').value;
-  var datasetId = Number(document.getElementById('notes').dataset.id);
+  var dataId = event.target.getAttribute('data-id');
+  var notes = document.getElementById(`notes-${dataId}`).value;
+  var datasetId = Number(document.getElementById(`notes-${dataId}`).dataset.id);
 
   newFavoriteObject = {
     id: datasetId,
-    photoUrl: data.favorites[Number(datasetId)].photoUrl,
+    photoUrl: data.favorites[Number(dataId)].photoUrl,
     notes
   };
   data.favorites[datasetId] = newFavoriteObject;
-
 }
