@@ -64,7 +64,8 @@ function renderImages(favorites) {
   var textarea = document.createElement('textarea');
   textarea.setAttribute('id', `notes-${favorites.id}`);
   textarea.setAttribute('data-id', favorites.id);
-
+  var trashIcon = document.createElement('i');
+  trashIcon.className = 'fa-solid fa-trash-can';
   // pre fill text content
   textarea.textContent = favorites.notes;
   var editIcon = document.createElement('i');
@@ -73,6 +74,7 @@ function renderImages(favorites) {
   colHalfdiv.appendChild(h6);
   colHalfdiv.appendChild(textarea);
   colHalfdiv.appendChild(saveBtn);
+  colHalfdiv.appendChild(trashIcon);
   return colHalfdiv;
 }
 window.addEventListener('DOMContentLoaded', domContentLoaded);
@@ -84,8 +86,8 @@ function domContentLoaded(event) {
     }
   }
 }
-var saveBtn = document.querySelector('.save-btn');
-saveBtn.addEventListener('click', handleSubmit);
+// var saveBtn = document.querySelector('.save-btn');
+// saveBtn.addEventListener('click', handleSubmit);
 
 function viewFavorites(event) {
   data.view = 'favorites';
@@ -112,4 +114,42 @@ function handleSubmit(event) {
     notes
   };
   data.favorites[datasetId] = newFavoriteObject;
+}
+function deleteEntry(event) {
+  var currentEntry = data.favorites.id;
+  console.log(currentEntry);
+  var favorites = document.querySelectorAll('.columns');
+  for (var i = 0; i < favorites.length; i++) {
+    var entryIdValue = favorites[i].getAttribute('data-id');
+    var parsedValue = parseInt(entryIdValue);
+    console.log(parsedValue);
+    if (currentEntry === parsedValue) {
+      favorites.splice(i, 1);
+      favorites[i].closest.remove();
+      viewFavorites();
+
+    }
+  }
+  modal.classList.add('hidden');
+  overlay.classList.add('hidden');
+}
+var modal = document.querySelector('#modal');
+var overlay = document.querySelector('#overlay');
+var confirmModal = document.querySelector('#confirm-modal');
+confirmModal.addEventListener('click', deleteEntry);
+var cancelBtn = document.querySelector('#close-modal-btn');
+cancelBtn.addEventListener('click', removeEntry);
+$favorites.addEventListener('click', showModal);
+
+function showModal(event) {
+  if (event.target.tagName === 'I') {
+    modal.classList.remove('hidden');
+    overlay.classList.remove('hidden');
+  }
+}
+
+function removeEntry(event) {
+  modal.classList.add('hidden');
+  overlay.classList.add('hidden');
+
 }
