@@ -46,7 +46,6 @@ function stayOnSamePageAfterRefresh() {
   }
   viewHomePage();
 }
-// var updatedData = localStorage.getItem(renderImages(data.favorites));
 function renderImages(favorites) {
   var saveBtn = document.createElement('button');
   saveBtn.addEventListener('click', handleSubmit);
@@ -66,6 +65,9 @@ function renderImages(favorites) {
   textarea.setAttribute('data-id', favorites.id);
   var trashIcon = document.createElement('i');
   trashIcon.className = 'fa-solid fa-trash-can';
+  trashIcon.setAttribute('id', `trash-${favorites.id}`);
+  trashIcon.setAttribute('data-id', favorites.id);
+  trashIcon.addEventListener('click', showModal);
   // pre fill text content
   textarea.textContent = favorites.notes;
   var editIcon = document.createElement('i');
@@ -86,8 +88,6 @@ function domContentLoaded(event) {
     }
   }
 }
-// var saveBtn = document.querySelector('.save-btn');
-// saveBtn.addEventListener('click', handleSubmit);
 
 function viewFavorites(event) {
   data.view = 'favorites';
@@ -115,24 +115,28 @@ function handleSubmit(event) {
   };
   data.favorites[datasetId] = newFavoriteObject;
 }
-function deleteEntry(event) {
-  var currentEntry = data.favorites.id;
-  console.log(currentEntry);
-  var favorites = document.querySelectorAll('.columns');
-  for (var i = 0; i < favorites.length; i++) {
-    var entryIdValue = favorites[i].getAttribute('data-id');
-    var parsedValue = parseInt(entryIdValue);
-    console.log(parsedValue);
-    if (currentEntry === parsedValue) {
-      favorites.splice(i, 1);
-      favorites[i].closest.remove();
-      viewFavorites();
 
+function deleteEntry(event) {
+  // console.log(currentEntry);
+  // var trash = document.getElementById(`trash-${dataId}`);
+  var dataId = event.target.getAttribute('data-id');
+
+  var datasetId = Number(document.getElementById(`trash-${dataId}`));
+  var favorites = document.querySelectorAll('.column');
+  for (var i = 0; i < data.favorites.length; i++) {
+
+    var favoritesIdValue = favorites[i].getAttribute('data-id');
+    var parsedValue = parseInt(favoritesIdValue);
+    if (datasetId === parsedValue) {
+      data.favorites.splice(i, 1);
+      favorites[i].remove();
+      viewFavorites();
     }
   }
   modal.classList.add('hidden');
   overlay.classList.add('hidden');
 }
+
 var modal = document.querySelector('#modal');
 var overlay = document.querySelector('#overlay');
 var confirmModal = document.querySelector('#confirm-modal');
