@@ -25,17 +25,19 @@ function handleClick(event) {
   });
   xhr.send();
 }
-
+var favoriteObject;
 function iconClick(event) {
   data.view = 'home-page';
   $icon.classList.toggle('clicked');
-  var favoriteObject = {
+  favoriteObject = {
     id: data.nextEntryId,
     photoUrl: currentImage
   };
   data.nextEntryId++;
   data.favorites.push(favoriteObject);
+  $favorites.prepend(renderImages(favoriteObject));
 }
+
 function viewHomePage() {
   data.view = 'home-page';
   // stayOnSamePageAfterRefresh();
@@ -96,6 +98,7 @@ function viewFavorites(event) {
   $button.textContent = 'Favorites';
   $favorites.classList.remove('hidden');
   $favoritesViewText.classList.remove('hidden');
+  // may need but not sure
 
 }
 stayOnSamePageAfterRefresh();
@@ -113,6 +116,7 @@ function handleSubmit(event) {
     photoUrl: data.favorites[Number(dataId)].photoUrl,
     notes
   };
+  data.nextEntryId++;
   data.favorites[datasetId] = newFavoriteObject;
 }
 
