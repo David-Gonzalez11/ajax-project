@@ -54,6 +54,8 @@ function renderImages(favorites) {
   saveBtn.className = ('save-btn');
   saveBtn.textContent = 'SAVE';
   saveBtn.setAttribute('data-id', favorites.id);
+  var paragraph = document.createElement('p');
+  paragraph.textContent = 'Date created:' + ' ' + new Date();
   var colHalfdiv = document.createElement('div');
   colHalfdiv.setAttribute('class', 'column');
   colHalfdiv.setAttribute('data-id', favorites.id);
@@ -79,6 +81,7 @@ function renderImages(favorites) {
   colHalfdiv.appendChild(textarea);
   colHalfdiv.appendChild(saveBtn);
   colHalfdiv.appendChild(trashIcon);
+  colHalfdiv.appendChild(paragraph);
   return colHalfdiv;
 }
 window.addEventListener('DOMContentLoaded', domContentLoaded);
@@ -116,6 +119,7 @@ function handleSubmit(event) {
     photoUrl: data.favorites[Number(dataId)].photoUrl,
     notes
   };
+
   data.nextEntryId++;
   data.favorites[datasetId] = newFavoriteObject;
 }
@@ -160,4 +164,18 @@ function removeEntry(event) {
   modal.classList.add('hidden');
   overlay.classList.add('hidden');
 
+}
+
+// function dateCreated(event) {
+//   document.getElementById('dateText').textContent = new Date();
+// }
+var homeText = document.querySelector('.home');
+homeText.addEventListener('click', clickHome);
+function clickHome(event) {
+  data.view = 'home-page';
+  $favorites.classList.add('hidden');
+  $favoritesViewText.classList.add('hidden');
+  $imageContainer.classList.remove('hidden');
+  $button.classList.remove('hidden');
+  $button.textContent = 'Get Random Dog Image';
 }
