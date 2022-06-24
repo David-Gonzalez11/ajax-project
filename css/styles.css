@@ -136,10 +136,6 @@ li {
   margin-left: 2rem;
 }
 
-.favorites {
-  display: flex;
-}
-
 .column-editing {
   align-items: center;
   justify-content: center;
@@ -260,4 +256,8 @@ h5 {
   .fa-trash-can {
     margin-left: 2rem;
   }
+}
+
+#date {
+  font-size: medium;
 }

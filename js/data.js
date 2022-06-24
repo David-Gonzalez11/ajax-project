@@ -2,7 +2,8 @@
 var data = {
   view: 'home-page',
   favorites: [],
-  nextEntryId: 0
+  nextEntryId: 0,
+  date: ''
 };
 
 var previousTodosJSON = localStorage.getItem('Ajax-Project');

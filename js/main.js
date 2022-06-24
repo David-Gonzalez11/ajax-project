@@ -48,14 +48,13 @@ function stayOnSamePageAfterRefresh() {
   }
   viewHomePage();
 }
+// var date = Date.now();
 function renderImages(favorites) {
   var saveBtn = document.createElement('button');
   saveBtn.addEventListener('click', handleSubmit);
   saveBtn.className = ('save-btn');
   saveBtn.textContent = 'SAVE';
   saveBtn.setAttribute('data-id', favorites.id);
-  var paragraph = document.createElement('p');
-  paragraph.textContent = 'Date created:' + ' ' + new Date();
   var colHalfdiv = document.createElement('div');
   colHalfdiv.setAttribute('class', 'column');
   colHalfdiv.setAttribute('data-id', favorites.id);
@@ -72,6 +71,10 @@ function renderImages(favorites) {
   trashIcon.setAttribute('id', `trash-${favorites.id}`);
   trashIcon.setAttribute('data-id', favorites.id);
   trashIcon.addEventListener('click', showModal);
+  var paragrpah = document.createElement('p');
+  paragrpah.setAttribute('id', 'date');
+  paragrpah.textContent = favorites.date;
+
   // pre fill text content
   textarea.textContent = favorites.notes;
   var editIcon = document.createElement('i');
@@ -81,7 +84,7 @@ function renderImages(favorites) {
   colHalfdiv.appendChild(textarea);
   colHalfdiv.appendChild(saveBtn);
   colHalfdiv.appendChild(trashIcon);
-  colHalfdiv.appendChild(paragraph);
+  h6.appendChild(paragrpah);
   return colHalfdiv;
 }
 window.addEventListener('DOMContentLoaded', domContentLoaded);
@@ -101,8 +104,9 @@ function viewFavorites(event) {
   $button.textContent = 'Favorites';
   $favorites.classList.remove('hidden');
   $favoritesViewText.classList.remove('hidden');
-  // may need but not sure
-
+  if (data.favorites.length === 0) {
+    $favoritesViewText = 'Nothing has been favorited';
+  }
 }
 stayOnSamePageAfterRefresh();
 
@@ -113,11 +117,12 @@ function handleSubmit(event) {
   var dataId = event.target.getAttribute('data-id');
   var notes = document.getElementById(`notes-${dataId}`).value;
   var datasetId = Number(document.getElementById(`notes-${dataId}`).dataset.id);
-
+  var dateNumber = Date(Date.now());
   newFavoriteObject = {
     id: datasetId,
     photoUrl: data.favorites[Number(dataId)].photoUrl,
-    notes
+    notes,
+    date: 'Date created:' + dateNumber.toString()
   };
 
   data.nextEntryId++;
@@ -125,14 +130,10 @@ function handleSubmit(event) {
 }
 
 function deleteEntry(event) {
-  // console.log(currentEntry);
-  // var trash = document.getElementById(`trash-${dataId}`);
   var dataId = event.target.getAttribute('data-id');
-
   var datasetId = Number(document.getElementById(`trash-${dataId}`));
   var favorites = document.querySelectorAll('.column');
   for (var i = 0; i < data.favorites.length; i++) {
-
     var favoritesIdValue = favorites[i].getAttribute('data-id');
     var parsedValue = parseInt(favoritesIdValue);
     if (datasetId === parsedValue) {
@@ -144,7 +145,6 @@ function deleteEntry(event) {
   modal.classList.add('hidden');
   overlay.classList.add('hidden');
 }
-
 var modal = document.querySelector('#modal');
 var overlay = document.querySelector('#overlay');
 var confirmModal = document.querySelector('#confirm-modal');
@@ -166,15 +166,12 @@ function removeEntry(event) {
 
 }
 
-// function dateCreated(event) {
-//   document.getElementById('dateText').textContent = new Date();
-// }
 var homeText = document.querySelector('.home');
 homeText.addEventListener('click', clickHome);
 function clickHome(event) {
   data.view = 'home-page';
   $favorites.classList.add('hidden');
-  $favoritesViewText.classList.add('hidden');
+  $favoritesViewText.className = 'hidden';
   $imageContainer.classList.remove('hidden');
   $button.classList.remove('hidden');
   $button.textContent = 'Get Random Dog Image';
