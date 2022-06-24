@@ -11,6 +11,7 @@ var notes = document.createElement('textarea');
 notes.setAttribute('id', 'notes');
 notes.textContent = notes.value;
 var currentImage;
+var noteDate = Date(Date.now());
 
 function handleClick(event) {
   data.view = 'home-page';
@@ -31,7 +32,8 @@ function iconClick(event) {
   $icon.classList.toggle('clicked');
   favoriteObject = {
     id: data.nextEntryId,
-    photoUrl: currentImage
+    photoUrl: currentImage,
+    FavoriteDate: 'Favorite created: ' + noteDate.toString()
   };
   data.nextEntryId++;
   data.favorites.push(favoriteObject);
@@ -73,7 +75,10 @@ function renderImages(favorites) {
   trashIcon.addEventListener('click', showModal);
   var paragrpah = document.createElement('p');
   paragrpah.setAttribute('id', 'date');
-  paragrpah.textContent = favorites.date;
+  paragrpah.textContent = favorites.FavoriteDate;
+  var notesCreated = document.createElement('p');
+  notesCreated.setAttribute('id', 'notes-date');
+  notesCreated.textContent = favorites.Notesdate;
 
   // pre fill text content
   textarea.textContent = favorites.notes;
@@ -85,6 +90,7 @@ function renderImages(favorites) {
   colHalfdiv.appendChild(saveBtn);
   colHalfdiv.appendChild(trashIcon);
   h6.appendChild(paragrpah);
+  paragrpah.appendChild(notesCreated);
   return colHalfdiv;
 }
 window.addEventListener('DOMContentLoaded', domContentLoaded);
@@ -122,7 +128,8 @@ function handleSubmit(event) {
     id: datasetId,
     photoUrl: data.favorites[Number(dataId)].photoUrl,
     notes,
-    date: 'Date created: ' + dateNumber.toString()
+    FavoriteDate: 'Favorite created: ' + dateNumber.toString(),
+    Notesdate: 'Created Notes: ' + noteDate.toString()
   };
 
   data.nextEntryId++;
