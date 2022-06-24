@@ -35,7 +35,8 @@ function iconClick(event) {
   };
   data.nextEntryId++;
   data.favorites.push(favoriteObject);
-  $favorites.prepend(renderImages(favoriteObject));
+  // $favorites.prepend(renderImages(favoriteObject));
+
 }
 
 function viewHomePage() {
@@ -48,7 +49,6 @@ function stayOnSamePageAfterRefresh() {
   }
   viewHomePage();
 }
-// var date = Date.now();
 function renderImages(favorites) {
   var saveBtn = document.createElement('button');
   saveBtn.addEventListener('click', handleSubmit);
@@ -104,9 +104,9 @@ function viewFavorites(event) {
   $button.textContent = 'Favorites';
   $favorites.classList.remove('hidden');
   $favoritesViewText.classList.remove('hidden');
-  if (data.favorites.length === 0) {
-    $favoritesViewText = 'Nothing has been favorited';
-  }
+  // if (data.favorites.length === 0) {
+  //   $favoritesViewText = 'Nothing has been favorited';
+  // }
 }
 stayOnSamePageAfterRefresh();
 
@@ -122,11 +122,12 @@ function handleSubmit(event) {
     id: datasetId,
     photoUrl: data.favorites[Number(dataId)].photoUrl,
     notes,
-    date: 'Date created:' + dateNumber.toString()
+    date: 'Date created: ' + dateNumber.toString()
   };
 
   data.nextEntryId++;
   data.favorites[datasetId] = newFavoriteObject;
+
 }
 
 function deleteEntry(event) {
