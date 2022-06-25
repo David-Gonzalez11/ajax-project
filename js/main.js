@@ -11,6 +11,7 @@ var notes = document.createElement('textarea');
 notes.setAttribute('id', 'notes');
 notes.textContent = notes.value;
 var currentImage;
+var noteDate = Date(Date.now());
 
 function handleClick(event) {
   data.view = 'home-page';
@@ -31,11 +32,13 @@ function iconClick(event) {
   $icon.classList.toggle('clicked');
   favoriteObject = {
     id: data.nextEntryId,
-    photoUrl: currentImage
+    photoUrl: currentImage,
+    FavoriteDate: 'Favorite created: ' + noteDate.toString()
   };
   data.nextEntryId++;
   data.favorites.push(favoriteObject);
-  $favorites.prepend(renderImages(favoriteObject));
+  // $favorites.prepend(renderImages(favoriteObject));
+
 }
 
 function viewHomePage() {
@@ -70,6 +73,13 @@ function renderImages(favorites) {
   trashIcon.setAttribute('id', `trash-${favorites.id}`);
   trashIcon.setAttribute('data-id', favorites.id);
   trashIcon.addEventListener('click', showModal);
+  var paragrpah = document.createElement('p');
+  paragrpah.setAttribute('id', 'date');
+  paragrpah.textContent = favorites.FavoriteDate;
+  var notesCreated = document.createElement('p');
+  notesCreated.setAttribute('id', 'notes-date');
+  notesCreated.textContent = favorites.Notesdate;
+
   // pre fill text content
   textarea.textContent = favorites.notes;
   var editIcon = document.createElement('i');
@@ -79,6 +89,8 @@ function renderImages(favorites) {
   colHalfdiv.appendChild(textarea);
   colHalfdiv.appendChild(saveBtn);
   colHalfdiv.appendChild(trashIcon);
+  h6.appendChild(paragrpah);
+  paragrpah.appendChild(notesCreated);
   return colHalfdiv;
 }
 window.addEventListener('DOMContentLoaded', domContentLoaded);
@@ -98,8 +110,9 @@ function viewFavorites(event) {
   $button.textContent = 'Favorites';
   $favorites.classList.remove('hidden');
   $favoritesViewText.classList.remove('hidden');
-  // may need but not sure
-
+  // if (data.favorites.length === 0) {
+  //   $favoritesViewText = 'Nothing has been favorited';
+  // }
 }
 stayOnSamePageAfterRefresh();
 
@@ -110,25 +123,25 @@ function handleSubmit(event) {
   var dataId = event.target.getAttribute('data-id');
   var notes = document.getElementById(`notes-${dataId}`).value;
   var datasetId = Number(document.getElementById(`notes-${dataId}`).dataset.id);
-
+  var dateNumber = Date(Date.now());
   newFavoriteObject = {
     id: datasetId,
     photoUrl: data.favorites[Number(dataId)].photoUrl,
-    notes
+    notes,
+    FavoriteDate: 'Favorite created: ' + dateNumber.toString(),
+    Notesdate: 'Created Notes: ' + noteDate.toString()
   };
+
   data.nextEntryId++;
   data.favorites[datasetId] = newFavoriteObject;
+
 }
 
 function deleteEntry(event) {
-  // console.log(currentEntry);
-  // var trash = document.getElementById(`trash-${dataId}`);
   var dataId = event.target.getAttribute('data-id');
-
   var datasetId = Number(document.getElementById(`trash-${dataId}`));
   var favorites = document.querySelectorAll('.column');
   for (var i = 0; i < data.favorites.length; i++) {
-
     var favoritesIdValue = favorites[i].getAttribute('data-id');
     var parsedValue = parseInt(favoritesIdValue);
     if (datasetId === parsedValue) {
@@ -140,7 +153,6 @@ function deleteEntry(event) {
   modal.classList.add('hidden');
   overlay.classList.add('hidden');
 }
-
 var modal = document.querySelector('#modal');
 var overlay = document.querySelector('#overlay');
 var confirmModal = document.querySelector('#confirm-modal');
@@ -160,4 +172,15 @@ function removeEntry(event) {
   modal.classList.add('hidden');
   overlay.classList.add('hidden');
 
+}
+
+var homeText = document.querySelector('.home');
+homeText.addEventListener('click', clickHome);
+function clickHome(event) {
+  data.view = 'home-page';
+  $favorites.classList.add('hidden');
+  $favoritesViewText.className = 'hidden';
+  $imageContainer.classList.remove('hidden');
+  $button.classList.remove('hidden');
+  $button.textContent = 'Get Random Dog Image';
 }
